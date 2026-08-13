@@ -1,7 +1,11 @@
 import express, { type Express, type Request, type Response } from 'express';
+import cors from "cors";
+
 
 const app: Express = express();
 const port = 8000;
+
+app.use(cors());
 
 
 
@@ -9,18 +13,21 @@ const data = [{
     name: "susu uht",
     category: "minuman",
     prices: 4500
-}, {
+},{
     name: "indomie sedap",
     category: "makanan",
     prices: 5000
-}]
+}, {
+    name: "cipuk mang teten",   
+    category: "makanan",
+    prices: 1000
+}
+]
 
 app.get('/api/products', (req: Request, res: Response) => {
   res.status(200).json({
     message: "Berhasil fetch data products",
-    data   : [{
-        data
-    }]  
+    data   : data
   })
 });
 
@@ -48,7 +55,7 @@ app.put('/api/products', (req: Request, res: Response) => {
 
 app.delete('/api/products', (req: Request, res: Response) => {
 
-    if (data.length === 0 ) {
+    if (data.length === 0) {
         res.status(404).json({
             message: "Data yang ingin di hapus tidak ada"
         })
